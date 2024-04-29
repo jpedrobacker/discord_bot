@@ -33,7 +33,7 @@ def run_bot():
 	async def play(ctx, link):
 		try:
 			if ctx.author.voice is None:
-				return await ctx.send("Tu tem que tá em um canal de voz né doente...")
+				return await ctx.send("Need to be in a voice chat...")
 
 			voice_client = await ctx.author.voice.channel.connect()
 			voice_clients[ctx.guild.id] = voice_client
@@ -55,9 +55,9 @@ def run_bot():
 	async def clear_queue(ctx):
 		if ctx.guild.id in queues:
 			queues[ctx.guild.id].clear()
-			await ctx.send("A merda da fila tá vazia agora, satisfeito?!")
+			await ctx.send("Queue cleared?!")
 		else:
-			await ctx.send("Não tem fila pra limpar filhote de estrume!")
+			await ctx.send("No queue to be cleared!")
 
 	@client.command(name="pause")
 	async def pause(ctx):
@@ -96,11 +96,11 @@ def run_bot():
 		if ctx.guild.id not in queues:
 			queues[ctx.guild.id] = []
 		queues[ctx.guild.id].append(url)
-		await ctx.send("Adicionei essa lixeira na fila!")
+		await ctx.send("Added to the queue!")
 
 	async def send_msg(messsage, user_message: str) -> None:
 		if not user_message:
-			print('(Message was empty, no intents)')
+			print(f'(Message was empty, no intents)')
 			return
 
 		if is_private := user_message[0] == '?':
